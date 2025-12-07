@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Update with production URL
+    // baseURL: 'http://localhost:5000/api',
+    baseURL: 'https://exceptionz-mobile-backend.vercel.app/api',
+
 });
 
 api.interceptors.request.use((config) => {
