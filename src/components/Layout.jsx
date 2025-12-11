@@ -14,7 +14,9 @@ import {
     ArrowLeftOnRectangleIcon,
     MagnifyingGlassIcon,
     Bars3Icon,
-    XMarkIcon
+    XMarkIcon,
+    Cog6ToothIcon,
+    ClipboardDocumentListIcon
 } from '@heroicons/react/24/outline';
 
 const Layout = () => {
@@ -30,6 +32,8 @@ const Layout = () => {
         { name: 'Support Tickets', href: '/tickets', icon: TicketIcon },
         { name: 'Appointments', href: '/appointments', icon: CalendarIcon },
         { name: 'Quick Quotes', href: '/quotes', icon: CurrencyDollarIcon },
+        { name: 'Quote Requests', href: '/quote-requests', icon: ClipboardDocumentListIcon },
+        { name: 'Quote Pricing', href: '/quote-pricing', icon: Cog6ToothIcon },
         { name: 'Career', href: '/career', icon: BriefcaseIcon },
         { name: 'Notifications', href: '/notifications', icon: BellIcon },
     ];
@@ -49,8 +53,8 @@ const Layout = () => {
                                 key={item.name}
                                 to={item.href}
                                 className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${location.pathname === item.href
-                                        ? 'bg-indigo-700 text-white shadow-lg'
-                                        : 'text-indigo-100 hover:bg-indigo-700/50 hover:text-white'
+                                    ? 'bg-indigo-700 text-white shadow-lg'
+                                    : 'text-indigo-100 hover:bg-indigo-700/50 hover:text-white'
                                     }`}
                             >
                                 <item.icon className={`mr-3 h-5 w-5 flex-shrink-0 ${location.pathname === item.href ? 'text-white' : 'text-indigo-300'
@@ -99,8 +103,8 @@ const Layout = () => {
                                 to={item.href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`group flex items-center px-3 py-3 text-sm font-medium rounded-lg ${location.pathname === item.href
-                                        ? 'bg-indigo-700 text-white'
-                                        : 'text-indigo-100 hover:bg-indigo-700/50 hover:text-white'
+                                    ? 'bg-indigo-700 text-white'
+                                    : 'text-indigo-100 hover:bg-indigo-700/50 hover:text-white'
                                     }`}
                             >
                                 <item.icon className="mr-3 h-5 w-5" />

@@ -9,6 +9,8 @@ import Users from './pages/Users';
 import SupportTickets from './pages/SupportTickets';
 import Appointments from './pages/Appointments';
 import QuickQuotes from './pages/QuickQuotes';
+import QuotePricingSettings from './pages/QuotePricingSettings';
+import QuoteRequests from './pages/QuoteRequests';
 import Career from './pages/Career';
 import Notifications from './pages/Notifications';
 import ProjectDetail from './pages/ProjectDetail';
@@ -42,6 +44,8 @@ function App() {
             <Route path="tickets" element={<SupportTickets />} />
             <Route path="appointments" element={<Appointments />} />
             <Route path="quotes" element={<QuickQuotes />} />
+            <Route path="quote-pricing" element={<QuotePricingSettings />} />
+            <Route path="quote-requests" element={<QuoteRequests />} />
             <Route path="career" element={<Career />} />
             <Route path="notifications" element={<Notifications />} />
           </Route>
@@ -52,3 +56,4 @@ function App() {
 }
 
 export default App;
+
