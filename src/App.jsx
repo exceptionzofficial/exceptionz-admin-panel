@@ -8,7 +8,7 @@ import Invoices from './pages/Invoices';
 import Users from './pages/Users';
 import SupportTickets from './pages/SupportTickets';
 import Appointments from './pages/Appointments';
-import QuickQuotes from './pages/QuickQuotes';
+
 import QuotePricingSettings from './pages/QuotePricingSettings';
 import QuoteRequests from './pages/QuoteRequests';
 import Career from './pages/Career';
@@ -28,32 +28,35 @@ const PrivateRoute = ({ children }) => {
   return user ? children : <Navigate to="/login" />;
 };
 
+import { ThemeProvider } from './context/ThemeContext';
+
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
+      <ThemeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
 
-          <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
-            <Route index element={<Dashboard />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="projects/:id" element={<ProjectDetail />} />
-            <Route path="invoices" element={<Invoices />} />
-            <Route path="users" element={<Users />} />
-            <Route path="tickets" element={<SupportTickets />} />
-            <Route path="appointments" element={<Appointments />} />
-            <Route path="quotes" element={<QuickQuotes />} />
-            <Route path="quote-pricing" element={<QuotePricingSettings />} />
-            <Route path="quote-requests" element={<QuoteRequests />} />
-            <Route path="career" element={<Career />} />
-            <Route path="notifications" element={<Notifications />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+              <Route index element={<Dashboard />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="projects/:id" element={<ProjectDetail />} />
+              <Route path="invoices" element={<Invoices />} />
+              <Route path="users" element={<Users />} />
+              <Route path="tickets" element={<SupportTickets />} />
+              <Route path="appointments" element={<Appointments />} />
+
+              <Route path="quote-pricing" element={<QuotePricingSettings />} />
+              <Route path="quote-requests" element={<QuoteRequests />} />
+              <Route path="career" element={<Career />} />
+              <Route path="notifications" element={<Notifications />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </AuthProvider>
   );
 }
 
 export default App;
-

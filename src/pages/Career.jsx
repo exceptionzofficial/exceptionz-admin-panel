@@ -38,98 +38,98 @@ const Career = () => {
         <div className="space-y-6">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-gray-900">Career Applications</h1>
-                <p className="text-sm text-gray-500 mt-1">Review job applications and manage hiring</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Career Applications</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Review job applications and manage hiring</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                    <p className="text-sm text-gray-500 mb-2">Total Applications</p>
-                    <p className="text-2xl font-bold text-gray-900">51</p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Total Applications</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">51</p>
                 </div>
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                    <p className="text-sm text-gray-500 mb-2">New</p>
-                    <p className="text-2xl font-bold text-blue-600">12</p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">New</p>
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">12</p>
                 </div>
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                    <p className="text-sm text-gray-500 mb-2">In Interview</p>
-                    <p className="text-2xl font-bold text-yellow-600">8</p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">In Interview</p>
+                    <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">8</p>
                 </div>
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                    <p className="text-sm text-gray-500 mb-2">Open Positions</p>
-                    <p className="text-2xl font-bold text-indigo-600">5</p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Open Positions</p>
+                    <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">5</p>
                 </div>
             </div>
 
             {/* Open Positions Summary */}
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                <h3 className="font-bold text-gray-900 mb-4">Open Positions</h3>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                <h3 className="font-bold text-gray-900 dark:text-white mb-4">Open Positions</h3>
                 <div className="grid md:grid-cols-5 gap-4">
                     {openPositions.map((pos, index) => (
-                        <div key={index} className="text-center p-4 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-600 mb-2">{pos.position}</p>
-                            <p className="text-2xl font-bold text-indigo-600">{pos.applications}</p>
-                            <p className="text-xs text-gray-500 mt-1">applications</p>
+                        <div key={index} className="text-center p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg transition-colors">
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{pos.position}</p>
+                            <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{pos.applications}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">applications</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Applications List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden transition-colors">
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-gray-50 dark:bg-gray-700/50">
                             <tr>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience</th>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applied</th>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Candidate</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Position</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Experience</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Applied</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                             {applications.map((app) => (
-                                <tr key={app.id} className="hover:bg-gray-50 transition-colors">
+                                <tr key={app.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
-                                            <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-semibold">
+                                            <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-700 dark:text-indigo-400 font-semibold transition-colors">
                                                 {app.name.split(' ').map(n => n[0]).join('')}
                                             </div>
                                             <div className="ml-4">
-                                                <div className="text-sm font-medium text-gray-900">{app.name}</div>
-                                                <div className="text-sm text-gray-500">{app.email}</div>
+                                                <div className="text-sm font-medium text-gray-900 dark:text-white">{app.name}</div>
+                                                <div className="text-sm text-gray-500 dark:text-gray-400">{app.email}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <div className="text-sm text-gray-900">{app.position}</div>
+                                        <div className="text-sm text-gray-900 dark:text-white">{app.position}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-600">{app.experience}</div>
+                                        <div className="text-sm text-gray-600 dark:text-gray-400">{app.experience}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-600">{app.applied}</div>
+                                        <div className="text-sm text-gray-600 dark:text-gray-400">{app.applied}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(app.status)}`}>
+                                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(app.status)} dark:bg-opacity-20`}>
                                             {app.status}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex gap-2">
-                                            <button className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                                            <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
                                                 <EyeIcon className="w-4 h-4" />
                                             </button>
-                                            <button className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors">
+                                            <button className="p-2 text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg transition-colors">
                                                 <CheckIcon className="w-4 h-4" />
                                             </button>
-                                            <button className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                            <button className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors">
                                                 <XMarkIcon className="w-4 h-4" />
                                             </button>
-                                            <button className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                                            <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
                                                 <ArrowDownTrayIcon className="w-4 h-4" />
                                             </button>
                                         </div>

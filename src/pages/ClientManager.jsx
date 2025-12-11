@@ -66,25 +66,28 @@ const ClientManager = () => {
         }
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="text-center py-12 text-gray-500 dark:text-gray-400">Loading...</div>;
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-6">Client Manager</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Client Manager</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* User List */}
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 h-[calc(100vh-150px)] overflow-y-auto">
-                    <h3 className="font-bold mb-4">Select Client</h3>
+                <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 h-[calc(100vh-150px)] overflow-y-auto transition-colors">
+                    <h3 className="font-bold mb-4 text-gray-900 dark:text-white">Select Client</h3>
                     <div className="space-y-2">
                         {users.map(user => (
                             <div
                                 key={user.id}
                                 onClick={() => setSelectedUser(user)}
-                                className={`p-3 rounded-lg cursor-pointer border ${selectedUser?.id === user.id ? 'bg-indigo-50 border-indigo-500' : 'hover:bg-gray-50 border-gray-200'}`}
+                                className={`p-3 rounded-lg cursor-pointer border transition-colors ${selectedUser?.id === user.id
+                                    ? 'bg-indigo-50 dark:bg-indigo-900/50 border-indigo-500 dark:border-indigo-500 text-indigo-700 dark:text-indigo-300'
+                                    : 'hover:bg-gray-50 dark:hover:bg-gray-700/50 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200'
+                                    }`}
                             >
                                 <p className="font-medium">{user.name}</p>
-                                <p className="text-xs text-gray-500">{user.email}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
                             </div>
                         ))}
                     </div>
@@ -94,22 +97,22 @@ const ClientManager = () => {
                 <div className="md:col-span-2 space-y-6">
                     {selectedUser ? (
                         <>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h3 className="font-bold mb-4 text-lg">Manage: {selectedUser.name}</h3>
+                            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
+                                <h3 className="font-bold mb-4 text-lg text-gray-900 dark:text-white">Manage: {selectedUser.name}</h3>
 
                                 {/* Add/Update Project */}
                                 <div className="mb-8">
-                                    <h4 className="text-sm font-bold uppercase text-gray-500 mb-3">Update Project Progress</h4>
+                                    <h4 className="text-sm font-bold uppercase text-gray-500 dark:text-gray-400 mb-3">Update Project Progress</h4>
                                     <form onSubmit={handleUpdateProject} className="grid grid-cols-2 gap-4">
                                         <input
                                             placeholder="Project Name"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={projectForm.name}
                                             onChange={e => setProjectForm({ ...projectForm, name: e.target.value })}
                                             required
                                         />
                                         <select
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={projectForm.status}
                                             onChange={e => setProjectForm({ ...projectForm, status: e.target.value })}
                                         >
@@ -120,19 +123,19 @@ const ClientManager = () => {
                                         <input
                                             type="number"
                                             placeholder="Progress %"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={projectForm.progress}
                                             onChange={e => setProjectForm({ ...projectForm, progress: e.target.value })}
                                             required
                                         />
                                         <input
                                             placeholder="Due Date (e.g. Dec 20, 2024)"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={projectForm.dueDate}
                                             onChange={e => setProjectForm({ ...projectForm, dueDate: e.target.value })}
                                             required
                                         />
-                                        <button type="submit" className="col-span-2 bg-indigo-600 text-white py-2 rounded">
+                                        <button type="submit" className="col-span-2 bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition-colors">
                                             Update Project
                                         </button>
                                     </form>
@@ -140,17 +143,17 @@ const ClientManager = () => {
 
                                 {/* Upload Invoice */}
                                 <div>
-                                    <h4 className="text-sm font-bold uppercase text-gray-500 mb-3">Upload Invoice</h4>
+                                    <h4 className="text-sm font-bold uppercase text-gray-500 dark:text-gray-400 mb-3">Upload Invoice</h4>
                                     <form onSubmit={handleUploadInvoice} className="grid grid-cols-2 gap-4">
                                         <input
                                             placeholder="Amount (e.g. $5,000)"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={invoiceData.amount}
                                             onChange={e => setInvoiceData({ ...invoiceData, amount: e.target.value })}
                                             required
                                         />
                                         <select
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={invoiceData.status}
                                             onChange={e => setInvoiceData({ ...invoiceData, status: e.target.value })}
                                         >
@@ -160,14 +163,14 @@ const ClientManager = () => {
                                         </select>
                                         <input
                                             placeholder="Due Date"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={invoiceData.dueDate}
                                             onChange={e => setInvoiceData({ ...invoiceData, dueDate: e.target.value })}
                                             required
                                         />
                                         <input
                                             placeholder="Project Name"
-                                            className="border p-2 rounded"
+                                            className="border dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                                             value={invoiceData.project}
                                             onChange={e => setInvoiceData({ ...invoiceData, project: e.target.value })}
                                             required
@@ -175,12 +178,12 @@ const ClientManager = () => {
                                         <div className="col-span-2">
                                             <input
                                                 type="file"
-                                                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                                                className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 dark:file:bg-indigo-900/50 file:text-indigo-700 dark:file:text-indigo-400 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/70 transition-colors"
                                                 onChange={e => setInvoiceFile(e.target.files[0])}
                                                 required
                                             />
                                         </div>
-                                        <button type="submit" className="col-span-2 bg-green-600 text-white py-2 rounded">
+                                        <button type="submit" className="col-span-2 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition-colors">
                                             Upload Invoice
                                         </button>
                                     </form>
@@ -188,7 +191,7 @@ const ClientManager = () => {
                             </div>
                         </>
                     ) : (
-                        <div className="flex items-center justify-center h-full text-gray-400">
+                        <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-500 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm transition-colors">
                             Select a client to manage
                         </div>
                     )}

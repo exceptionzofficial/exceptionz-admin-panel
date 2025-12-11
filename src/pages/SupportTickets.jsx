@@ -103,33 +103,33 @@ const SupportTickets = () => {
         { label: 'Resolved', value: tickets.filter(t => t.status === 'Resolved').length, color: 'bg-green-500' },
     ];
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="text-center py-12 text-gray-500 dark:text-gray-400">Loading...</div>;
 
     return (
         <div className="space-y-6">
             {/* Header */}
             <div>
-                <h1 className="text-2xl font-bold text-gray-900">Support Tickets</h1>
-                <p className="text-sm text-gray-500 mt-1">Manage customer support requests</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Support Tickets</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Manage customer support requests</p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {stats.map((stat, index) => (
-                    <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-sm text-gray-500 mb-2">{stat.label}</p>
-                                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{stat.label}</p>
+                                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
                             </div>
-                            <div className={`w-12 h-12 rounded-full ${stat.color} opacity-10`}></div>
+                            <div className={`w-12 h-12 rounded-full ${stat.color} opacity-10 dark:opacity-20`}></div>
                         </div>
                     </div>
                 ))}
             </div>
 
             {/* Search */}
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                 <div className="relative">
                     <MagnifyingGlassIcon className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
@@ -137,38 +137,38 @@ const SupportTickets = () => {
                         placeholder="Search tickets by name, email, or subject..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                     />
                 </div>
             </div>
 
             {/* Tickets List */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700 transition-colors">
                 {filteredTickets.length === 0 ? (
-                    <div className="p-12 text-center text-gray-500">
+                    <div className="p-12 text-center text-gray-500 dark:text-gray-400">
                         {searchQuery ? 'No tickets found' : 'No support tickets yet'}
                     </div>
                 ) : (
                     filteredTickets.map((ticket) => (
-                        <div key={ticket.id} className="p-6 hover:bg-gray-50 transition-colors">
+                        <div key={ticket.id} className="p-6 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="font-bold text-gray-900">{ticket.subject}</h3>
-                                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor(ticket.status)}`}>
+                                        <h3 className="font-bold text-gray-900 dark:text-white">{ticket.subject}</h3>
+                                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${getStatusColor(ticket.status)} dark:bg-opacity-20`}>
                                             {ticket.status}
                                         </span>
-                                        <span className={`text-xs px-2 py-1 rounded border font-medium ${getPriorityColor(ticket.priority)}`}>
+                                        <span className={`text-xs px-2 py-1 rounded border font-medium ${getPriorityColor(ticket.priority)} dark:bg-opacity-10`}>
                                             {ticket.priority}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-gray-600 mb-2">{ticket.description}</p>
-                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">{ticket.description}</p>
+                                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                                         <span className="font-medium">{ticket.name}</span>
                                         <span>{ticket.email}</span>
                                         {ticket.phone && <span>{ticket.phone}</span>}
                                     </div>
-                                    <p className="text-xs text-gray-400 mt-2">
+                                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
                                         Created: {new Date(ticket.createdAt).toLocaleDateString()} at {new Date(ticket.createdAt).toLocaleTimeString()}
                                     </p>
                                 </div>
@@ -177,13 +177,13 @@ const SupportTickets = () => {
                             <div className="flex gap-2">
                                 <button
                                     onClick={() => openStatusModal(ticket)}
-                                    className="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700"
+                                    className="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors"
                                 >
                                     Update Status
                                 </button>
                                 <button
                                     onClick={() => handleDelete(ticket.id)}
-                                    className="px-3 py-1.5 border border-red-300 text-red-600 rounded-lg text-sm font-medium hover:bg-red-50"
+                                    className="px-3 py-1.5 border border-red-300 dark:border-red-700 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
                                 >
                                     Delete
                                 </button>
@@ -195,27 +195,27 @@ const SupportTickets = () => {
 
             {/* Status Update Modal */}
             {showStatusModal && selectedTicket && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl max-w-md w-full p-6">
+                <div className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4 backdrop-blur-sm transition-all">
+                    <div className="bg-white dark:bg-gray-800 rounded-xl max-w-md w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xl font-bold text-gray-900">Update Ticket Status</h3>
-                            <button onClick={() => setShowStatusModal(false)} className="text-gray-400 hover:text-gray-600">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Update Ticket Status</h3>
+                            <button onClick={() => setShowStatusModal(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                         </div>
 
                         <div className="mb-4">
-                            <p className="text-sm text-gray-600 mb-1">Ticket</p>
-                            <p className="font-semibold text-gray-900">{selectedTicket.subject}</p>
-                            <p className="text-sm text-gray-500">From: {selectedTicket.name}</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Ticket</p>
+                            <p className="font-semibold text-gray-900 dark:text-white">{selectedTicket.subject}</p>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">From: {selectedTicket.name}</p>
                         </div>
 
                         <div className="mb-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
                             <select
                                 value={newStatus}
                                 onChange={(e) => setNewStatus(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-colors"
                             >
                                 <option value="Active">Active</option>
                                 <option value="In Progress">In Progress</option>
@@ -227,13 +227,13 @@ const SupportTickets = () => {
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setShowStatusModal(false)}
-                                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
+                                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleUpdateStatus}
-                                className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium"
+                                className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 font-medium transition-colors"
                             >
                                 Update
                             </button>

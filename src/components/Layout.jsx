@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import {
     HomeIcon,
     FolderIcon,
@@ -16,11 +17,14 @@ import {
     Bars3Icon,
     XMarkIcon,
     Cog6ToothIcon,
-    ClipboardDocumentListIcon
+    ClipboardDocumentListIcon,
+    SunIcon,
+    MoonIcon,
 } from '@heroicons/react/24/outline';
 
 const Layout = () => {
     const { logout, user } = useAuth();
+    const { isDarkMode, toggleTheme } = useTheme();
     const location = useLocation();
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -31,15 +35,13 @@ const Layout = () => {
         { name: 'Users', href: '/users', icon: UsersIcon },
         { name: 'Support Tickets', href: '/tickets', icon: TicketIcon },
         { name: 'Appointments', href: '/appointments', icon: CalendarIcon },
-        { name: 'Quick Quotes', href: '/quotes', icon: CurrencyDollarIcon },
         { name: 'Quote Requests', href: '/quote-requests', icon: ClipboardDocumentListIcon },
         { name: 'Quote Pricing', href: '/quote-pricing', icon: Cog6ToothIcon },
         { name: 'Career', href: '/career', icon: BriefcaseIcon },
-        { name: 'Notifications', href: '/notifications', icon: BellIcon },
     ];
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex transition-colors duration-200">
             {/* Sidebar for Desktop */}
             <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
                 <div className="flex flex-col flex-grow bg-gradient-to-b from-indigo-900 to-indigo-800 overflow-y-auto">
@@ -117,36 +119,26 @@ const Layout = () => {
 
             {/* Main Content */}
             <div className="lg:pl-64 flex flex-col flex-1">
-                {/* Top bar */}
-                <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow-sm">
+                {/* Top bar with Toggle */}
+                <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white dark:bg-gray-800 shadow-sm transition-colors duration-200 justify-end px-6 items-center">
                     <button
-                        className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none lg:hidden"
+                        className="px-4 border-r border-gray-200 text-gray-500 focus:outline-none lg:hidden mr-auto"
                         onClick={() => setSidebarOpen(true)}
                     >
                         <Bars3Icon className="h-6 w-6" />
                     </button>
-                    <div className="flex-1 px-4 flex justify-between items-center">
-                        <div className="flex-1 flex">
-                            <div className="w-full flex md:ml-0">
-                                <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                                    <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-3">
-                                        <MagnifyingGlassIcon className="h-5 w-5" />
-                                    </div>
-                                    <input
-                                        className="block w-full h-full pl-10 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                                        placeholder="Search..."
-                                        type="search"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="ml-4 flex items-center md:ml-6">
-                            <button className="p-2 rounded-full text-gray-400 hover:text-gray-500 relative">
-                                <BellIcon className="h-6 w-6" />
-                                <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
-                            </button>
-                        </div>
-                    </div>
+
+                    <button
+                        onClick={toggleTheme}
+                        className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                        aria-label="Toggle Theme"
+                    >
+                        {isDarkMode ? (
+                            <SunIcon className="w-6 h-6 text-yellow-500" />
+                        ) : (
+                            <MoonIcon className="w-6 h-6 text-indigo-500" />
+                        )}
+                    </button>
                 </div>
 
                 {/* Page Content */}

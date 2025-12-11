@@ -66,13 +66,13 @@ const QuotePricingSettings = () => {
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-bold text-white">Quote Pricing Settings</h1>
-                    <p className="text-gray-400 mt-1">Set prices for different project options</p>
+                    <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-600">Quote Pricing Settings</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">Set prices for different project options</p>
                 </div>
                 <div className="flex gap-3">
                     <button
                         onClick={fetchPricing}
-                        className="flex items-center gap-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg text-gray-700 dark:text-white transition-colors"
                     >
                         <ArrowPathIcon className="w-5 h-5" />
                         Refresh
@@ -91,22 +91,22 @@ const QuotePricingSettings = () => {
             {pricing && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Base Prices */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                            <CurrencyRupeeIcon className="w-5 h-5 text-purple-400" />
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                            <CurrencyRupeeIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                             Base Prices (Project Type)
                         </h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.basePrices || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1">{key}</label>
+                                    <label className="text-purple-700 dark:text-purple-200 font-medium flex-1">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-purple-600 dark:text-purple-400 font-bold">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('basePrices', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
                                         />
                                     </div>
                                 </div>
@@ -115,19 +115,19 @@ const QuotePricingSettings = () => {
                     </div>
 
                     {/* Platform Prices */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4">Platform Add-ons</h2>
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Platform Add-ons</h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.platform || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1">{key}</label>
+                                    <label className="text-gray-700 dark:text-gray-300 flex-1">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('platform', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -136,19 +136,19 @@ const QuotePricingSettings = () => {
                     </div>
 
                     {/* Payment Gateway */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4">Payment Gateway</h2>
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Payment Gateway</h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.paymentGateway || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1">{key}</label>
+                                    <label className="text-gray-700 dark:text-gray-300 flex-1">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('paymentGateway', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -157,19 +157,19 @@ const QuotePricingSettings = () => {
                     </div>
 
                     {/* Web Type */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4">Website Type</h2>
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Website Type</h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.webType || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1">{key}</label>
+                                    <label className="text-gray-700 dark:text-gray-300 flex-1">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('webType', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -178,19 +178,19 @@ const QuotePricingSettings = () => {
                     </div>
 
                     {/* SEO */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4">SEO Add-on</h2>
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">SEO Add-on</h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.seo || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1">{key}</label>
+                                    <label className="text-gray-700 dark:text-gray-300 flex-1">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('seo', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -199,19 +199,19 @@ const QuotePricingSettings = () => {
                     </div>
 
                     {/* Business Type */}
-                    <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 p-6">
-                        <h2 className="text-lg font-semibold text-white mb-4">Business App Types</h2>
+                    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm transition-colors">
+                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Business App Types</h2>
                         <div className="space-y-4">
                             {Object.entries(pricing.businessType || {}).map(([key, value]) => (
                                 <div key={key} className="flex items-center justify-between gap-4">
-                                    <label className="text-gray-300 flex-1 text-sm">{key}</label>
+                                    <label className="text-gray-700 dark:text-gray-300 flex-1 text-sm">{key}</label>
                                     <div className="relative">
-                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">₹</span>
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">₹</span>
                                         <input
                                             type="number"
                                             value={value}
                                             onChange={(e) => handlePriceChange('businessType', key, e.target.value)}
-                                            className="bg-gray-700 border border-gray-600 rounded-lg py-2 pl-8 pr-4 text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                            className="bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg py-2 pl-8 pr-4 text-gray-900 dark:text-white w-40 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
                                         />
                                     </div>
                                 </div>
