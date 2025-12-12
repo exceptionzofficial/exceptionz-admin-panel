@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     EyeIcon,
     CheckIcon,
@@ -9,27 +9,47 @@ import {
     PlusIcon
 } from '@heroicons/react/24/outline';
 import JobModal from '../components/JobModal';
+import api from '../services/api';
 
 const Career = () => {
     const [activeTab, setActiveTab] = useState('applications');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingJob, setEditingJob] = useState(null);
+    const [applications, setApplications] = useState([]);
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const [applications] = useState([
-        { id: 1, name: 'Alice Johnson', position: 'Senior React Developer', email: 'alice@email.com', experience: '5 years', status: 'Under Review', applied: '2 days ago', resume: true },
-        { id: 2, name: 'Bob Martinez', position: 'UI/UX Designer', email: 'bob@email.com', experience: '3 years', status: 'Interview', applied: '3 days ago', resume: true },
-        { id: 3, name: 'Carol White', position: 'Backend Engineer', email: 'carol@email.com', experience: '7 years', status: 'New', applied: '5 hours ago', resume: true },
-        { id: 4, name: 'David Lee', position: 'DevOps Engineer', email: 'david@email.com', experience: '4 years', status: 'Rejected', applied: '1 week ago', resume: true },
-        { id: 5, name: 'Emma Davis', position: 'Product Manager', email: 'emma@email.com', experience: '6 years', status: 'Shortlisted', applied: '4 days ago', resume: true },
-    ]);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const [jobs, setJobs] = useState([
-        { id: 1, title: 'Senior React Developer', department: 'Engineering', location: 'Remote', type: 'Full-time', status: 'Active', applications: 12, posted: '2 weeks ago', description: 'We are looking for...', requirements: ['React', 'Node.js'] },
-        { id: 2, title: 'UI/UX Designer', department: 'Design', location: 'New York', type: 'Full-time', status: 'Active', applications: 8, posted: '1 week ago', description: 'Design beautiful interfaces...', requirements: ['Figma', 'Adobe XD'] },
-        { id: 3, title: 'Backend Engineer', department: 'Engineering', location: 'Remote', type: 'Contract', status: 'Active', applications: 15, posted: '3 days ago', description: 'Build scalable APIs...', requirements: ['Python', 'AWS'] },
-        { id: 4, title: 'DevOps Engineer', department: 'Engineering', location: 'Remote', type: 'Full-time', status: 'Closed', applications: 6, posted: '1 month ago', description: 'Manage infrastructure...', requirements: ['Docker', 'Kubernetes'] },
-        { id: 5, title: 'Product Manager', department: 'Product', location: 'London', type: 'Full-time', status: 'Draft', applications: 0, posted: 'Just now', description: 'Lead product strategy...', requirements: ['Agile', 'Jira'] },
-    ]);
+    const fetchData = async () => {
+        setLoading(true);
+        await Promise.all([fetchJobs(), fetchApplications()]);
+        setLoading(false);
+    };
+
+    const fetchJobs = async () => {
+        try {
+            const response = await api.get('/career/admin/jobs');
+            if (response.data.success) {
+                setJobs(response.data.jobs);
+            }
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+        }
+    };
+
+    const fetchApplications = async () => {
+        try {
+            const response = await api.get('/career/admin/applications');
+            if (response.data.success) {
+                setApplications(response.data.applications);
+            }
+        } catch (error) {
+            console.error('Error fetching applications:', error);
+        }
+    };
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -58,36 +78,59 @@ const Career = () => {
         setIsModalOpen(true);
     };
 
-    const handleDeleteJob = (id) => {
+    const handleDeleteJob = async (id) => {
         if (window.confirm('Are you sure you want to delete this job posting?')) {
-            setJobs(jobs.filter(job => job.id !== id));
+            try {
+                await api.delete(`/career/admin/jobs/${id}`);
+                setJobs(jobs.filter(job => job.id !== id));
+            } catch (error) {
+                console.error('Error deleting job:', error);
+                alert('Failed to delete job');
+            }
         }
     };
 
-    const handleSaveJob = (jobData) => {
-        if (editingJob) {
-            setJobs(jobs.map(job => job.id === editingJob.id ? { ...jobData, id: job.id, applications: job.applications, posted: job.posted } : job));
-        } else {
-            setJobs([...jobs, { ...jobData, id: Date.now(), applications: 0, posted: 'Just now' }]);
+    const handleSaveJob = async (jobData) => {
+        try {
+            if (editingJob) {
+                const response = await api.put(`/career/admin/jobs/${editingJob.id}`, jobData);
+                if (response.data.success) {
+                    setJobs(jobs.map(job => job.id === editingJob.id ? response.data.job : job));
+                }
+            } else {
+                const response = await api.post('/career/admin/jobs', jobData);
+                if (response.data.success) {
+                    setJobs([...jobs, response.data.job]);
+                }
+            }
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error('Error saving job:', error);
+            alert('Failed to save job');
         }
-        setIsModalOpen(false);
     };
 
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        return new Date(dateString).toLocaleDateString();
+    };
+
+    // ... existing renders .. but updating to use API data fields ...
     const renderApplications = () => (
         <>
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Total Applications</p>
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">51</p>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{applications.length}</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">New</p>
-                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">12</p>
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{applications.filter(a => a.status === 'New').length}</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">In Interview</p>
-                    <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">8</p>
+                    <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">{applications.filter(a => a.status === 'Interview').length}</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 transition-colors">
                     <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Open Positions</p>
@@ -110,7 +153,13 @@ const Career = () => {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                            {applications.map((app) => (
+                            {applications.length === 0 ? (
+                                <tr>
+                                    <td colSpan="6" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                        No applications found
+                                    </td>
+                                </tr>
+                            ) : applications.map((app) => (
                                 <tr key={app.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
@@ -130,7 +179,7 @@ const Career = () => {
                                         <div className="text-sm text-gray-600 dark:text-gray-400">{app.experience}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        <div className="text-sm text-gray-600 dark:text-gray-400">{app.applied}</div>
+                                        <div className="text-sm text-gray-600 dark:text-gray-400">{formatDate(app.appliedAt)}</div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(app.status)}`}>
@@ -139,17 +188,9 @@ const Career = () => {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex gap-2">
+                                            {/* Action buttons placeholder - implement functionality as needed */}
                                             <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
                                                 <EyeIcon className="w-4 h-4" />
-                                            </button>
-                                            <button className="p-2 text-gray-400 hover:text-green-600 dark:hover:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-lg transition-colors">
-                                                <CheckIcon className="w-4 h-4" />
-                                            </button>
-                                            <button className="p-2 text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors">
-                                                <XMarkIcon className="w-4 h-4" />
-                                            </button>
-                                            <button className="p-2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors">
-                                                <ArrowDownTrayIcon className="w-4 h-4" />
                                             </button>
                                         </div>
                                     </td>
@@ -187,11 +228,17 @@ const Career = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
-                        {jobs.map((job) => (
+                        {jobs.length === 0 ? (
+                            <tr>
+                                <td colSpan="7" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    No jobs found
+                                </td>
+                            </tr>
+                        ) : jobs.map((job) => (
                             <tr key={job.id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                                 <td className="px-6 py-4">
                                     <div className="text-sm font-medium text-gray-900 dark:text-white">{job.title}</div>
-                                    <div className="text-xs text-gray-500 dark:text-gray-400">Posted {job.posted}</div>
+                                    <div className="text-xs text-gray-500 dark:text-gray-400">Posted {formatDate(job.postedAt)}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-600 dark:text-gray-400">{job.department}</div>
@@ -203,7 +250,7 @@ const Career = () => {
                                     <div className="text-sm text-gray-600 dark:text-gray-400">{job.type}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm font-medium text-gray-900 dark:text-white">{job.applications}</div>
+                                    <div className="text-sm font-medium text-gray-900 dark:text-white">{job.applicationsCount || 0}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(job.status)}`}>
@@ -233,6 +280,10 @@ const Career = () => {
             </div>
         </div>
     );
+
+    if (loading) {
+        return <div className="p-8 text-center">Loading...</div>;
+    }
 
     return (
         <div className="space-y-6">
